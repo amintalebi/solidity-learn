@@ -1,0 +1,45 @@
+const Tx = require("ethereumjs-tx");
+const Web3 = require('web3');
+
+const web3 = new Web3('https://kovan.infura.io/v3/83af4d404170428f866ad492288eafac');
+
+
+
+
+const abi = [{"constant":false,"inputs":[{"name":"to","type":"address"}],"name":"delegate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"winningProposal","outputs":[{"name":"_winningProposal","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"toVoter","type":"address"}],"name":"giveRightToVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"toProposal","type":"uint8"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_numProposals","type":"uint8"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
+
+
+const account1 = 'your public key';
+const contractAddress = '0x9d4b8b0b7f93384423c2259d78bbd6ebcd6b41d4';
+
+const contract = new web3.eth.Contract(abi, contractAddress);
+
+const privatekey1 = Buffer.from('<your privatekey>', 'hex');
+
+
+web3.eth.getTransactionCount(account1, (err, txCount) => {
+    
+
+    const data = contract.methods.giveRightToVote(account1).encodeABI();
+
+    const txObject = {
+        nonce: web3.utils.toHex(txCount),
+        gasLimit: web3.utils.toHex(1000000),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+        to: contractAddress,
+        data: data
+    };
+
+    const tx = new Tx(txObject);
+    tx.sign(privatekey1);
+    const serializedTransaction = tx.serialize();
+    const raw = `0x${serializedTransaction.toString('hex')}`;
+
+    web3.eth.sendSignedTransaction(raw, (err, txHash) => {
+        console.log("txHash", txHash);
+    })
+
+});
+
+
+

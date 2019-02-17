@@ -29,8 +29,3 @@ web3.eth.getTransactionCount(account1, (err, txCount) => {
     })
 
 });
-
-
-
-
-
