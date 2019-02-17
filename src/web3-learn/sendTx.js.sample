@@ -1,0 +1,36 @@
+const Tx = require("ethereumjs-tx");
+const Web3 = require('web3');
+
+const web3 = new Web3('https://kovan.infura.io/v3/83af4d404170428f866ad492288eafac');
+
+
+const account1 = '<sender public key>';
+const account2 = '<receiver public key>';
+
+
+const privatekey1 = Buffer.from('<your privatekey>', 'hex');
+
+web3.eth.getTransactionCount(account1, (err, txCount) => {
+    const txObject = {
+        nonce: web3.utils.toHex(txCount),
+        to: account2,
+        value: web3.utils.toHex(web3.utils.toWei('0.5', 'ether')),
+        gasLimit: web3.utils.toHex(21000),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei'))
+    };
+
+    const tx = new Tx(txObject);
+    tx.sign(privatekey1);
+    const serializedTransaction = tx.serialize();
+    const raw = `0x${serializedTransaction.toString('hex')}`;
+
+    web3.eth.sendSignedTransaction(raw, (err, txHash) => {
+        console.log("txHash", txHash);
+    })
+
+});
+
+
+
+
+
