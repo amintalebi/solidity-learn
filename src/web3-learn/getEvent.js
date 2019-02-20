@@ -16,5 +16,7 @@ contract.getPastEvents(
         toBlock: 'latest'
     },
     
-    (err, events) => {  console.log(events) }
+    (err, events) => {  
+        console.log(events);
+    }
 );

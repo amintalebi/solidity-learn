@@ -9,6 +9,7 @@
 
 createSmartContract.js
 sendTxToSmartContract.js
+sendTx.js
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
