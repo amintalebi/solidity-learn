@@ -106,6 +106,11 @@ contract('DecentralabToken', function(accounts) {
             return tokenInstance.allowance(fromAccount, spendingAccount);
         }).then(function(allowance) {
             assert.equal(allowance.toNumber(), 5, 'decucts the allowance');
+            
+            //tokenInstance.balanceOf(fromAccount, (err, res) => console.log(res));
+            //tokenInstance.balanceOf(toAccount, (err, res) => console.log(res));
+            //tokenInstance.allowance(fromAccount, spendingAccount, (err, res) => console.log(res));
+            throw new Error("test ended successfully!")
         });
     });
 });
