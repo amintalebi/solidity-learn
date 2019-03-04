@@ -247,9 +247,7 @@ contract.methods.getName().call().then((name) => {
     console.log(name);
 });
 
-const callback = (err, res) => { 
-  console.log(res);
-};
+const callback = (err, res) => { console.log(res); };
 
 const accounts = ["0x3085d38474891e2c9ffdd1fa8bf4673f99baec9d",
                   "0x9bef90e9d171bd105a29c8f54f8289f101187263",
@@ -263,7 +261,7 @@ web3.eth.sendTransaction({from: account1, to:account2, value: web3.utils.toWei('
       web3.eth.getBalance(account1, callback);
       web3.eth.getBalance(account2, callback);
     }
-  }  
+  };
 );
 
 
