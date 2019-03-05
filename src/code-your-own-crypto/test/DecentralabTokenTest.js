@@ -46,12 +46,6 @@ contract('DecentralabToken', function(accounts) {
             assert.equal(receipt.logs[0].args._from, accounts[0], 'logs the account the tokens are transfered from');
             assert.equal(receipt.logs[0].args._to, accounts[1], 'logs the account the tokens are transfered to');
             assert.equal(receipt.logs[0].args._value, 250000, 'logs the transfer amount');
-            return tokenInstance.balanceOf(accounts[1]);
-        }).then(function(balance) {
-            assert.equal(balance.toNumber(), 250000, 'adds the amount to the receiving account');
-            return tokenInstance.balanceOf(accounts[0]);
-        }).then(function(balance) {
-            assert.equal(balance.toNumber(), 750000, 'deducts the amount from the sending account');
         })
     })
 
